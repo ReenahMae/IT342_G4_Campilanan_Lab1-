@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 
 function Login() {
   const navigate = useNavigate();
@@ -19,40 +18,32 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
 
     try {
-      const res = await axios.post("http://localhost:8080/api/auth/login", {
-        email: form.email,
-        password: form.password
+      const response = await fetch("http://localhost:8080/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          email: form.email,
+          password: form.password
+        })
       });
 
-      // expected backend response:
-      // { token: "xxx", user: { firstName, middleName, lastName, email } }
-      const token = res.data.token;
-      if (!token) {
-        setErrorMsg("Login failed: token missing.");
-        return;
-      }
+      const data = await response.json();
 
-      localStorage.setItem("token", token);
-
-      // Save user if provided by backend
-      if (res.data.user) {
-        localStorage.setItem("user", JSON.stringify(res.data.user));
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.user));
+        navigate("/dashboard");
       } else {
-        // optional: clear old user data
-        localStorage.removeItem("user");
+        // better to show the error in the UI instead of alert
+        setErrorMsg(data.message || "Login failed");
       }
-
-      navigate("/dashboard");
     } catch (error) {
-      // Try to show backend message if it exists
-      const msg =
-        error?.response?.data?.message ||
-        error?.response?.data ||
-        "Invalid email or password.";
-      setErrorMsg(String(msg));
+      console.error("Error:", error);
+      setErrorMsg("Server error. Check if backend is running.");
     }
   };
 

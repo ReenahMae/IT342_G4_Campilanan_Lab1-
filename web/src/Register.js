@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import axios from "axios";
 
 function Register() {
   const navigate = useNavigate();
@@ -21,27 +20,38 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Simple validation
+    // ✅ optional: confirm password check
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
 
-    // Prepare data to send to backend
-    const payload = {
-      firstName: form.firstName,
-      middleName: form.middleName,
-      lastName: form.lastName,
-      email: form.email,
-      password: form.password
-    };
-
     try {
-      await axios.post("http://localhost:8080/api/auth/register", payload);
-      alert("Registered successfully!");
-      navigate("/login");
+      const response = await fetch("http://localhost:8080/api/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          middleName: form.middleName,
+          lastName: form.lastName,
+          email: form.email,
+          password: form.password
+        })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert("Registered successfully!");
+        navigate("/login");
+      } else {
+        alert(data.message || "Registration failed");
+      }
     } catch (error) {
-      alert("Registration failed.");
+      console.error("Error:", error);
+      alert("Server error. Check backend if running.");
     }
   };
 
