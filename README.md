@@ -1,7 +1,7 @@
-IT342 – Systems Integration and Architecture 1
+****IT342 – Systems Integration and Architecture 1
 Mini Authentication Application
-
-Name: Campilanan, Reenah Mae R.
+****
+**Name:** Campilanan, Reenah Mae R.
 Section: IT342-G4
 
 Project Description
