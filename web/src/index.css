@@ -14,14 +14,14 @@ body {
 .card {
   width: 350px;
   padding: 30px;
-  border: 2px solid #800000;
+  border: 2px solid #3f0606;
   border-radius: 6px;
   text-align: center;
   background-color: white;
 }
 
 h2 {
-  color: #800000;
+  color: #3f0606;
   margin-bottom: 20px;
 }
 
@@ -29,14 +29,14 @@ input {
   width: 90%;
   padding: 10px;
   margin-bottom: 15px;
-  border: 1px solid #800000;
+  border: 1px solid #3f0606;
   border-radius: 4px;
 }
 
 button {
   width: 100%;
   padding: 10px;
-  background-color: #800000;
+  background-color: #3f0606;
   color: white;
   border: none;
   cursor: pointer;
@@ -44,11 +44,11 @@ button {
 }
 
 button:hover {
-  background-color: #660000;
+  background-color: #3f0606;
 }
 
 a {
-  color: #800000;
+  color: #3f0606;
   text-decoration: none;
   font-weight: bold;
 }
