@@ -85,6 +85,9 @@ Backend runs at:
 http://localhost:8080
 
 ---
+### Mobile
+- Not yet implemented
+- Will use the same backend API (http://localhost:8080)
 
 ## How to Run Web
 
