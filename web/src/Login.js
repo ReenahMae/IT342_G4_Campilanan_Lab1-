@@ -38,7 +38,6 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(data.user));
         navigate("/dashboard");
       } else {
-        // better to show the error in the UI instead of alert
         setErrorMsg(data.message || "Login failed");
       }
     } catch (error) {
